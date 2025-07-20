@@ -1,4 +1,4 @@
--- First, drop existing tables if they exist (in reverse order of dependency to avoid foreign key errors)
+-- First, drop existing tables if they exist 
 DROP TABLE Products;
 DROP TABLE Customers;
 Drop Table Orders;
