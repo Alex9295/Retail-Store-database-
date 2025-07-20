@@ -1,0 +1,153 @@
+
+Error starting at line : 63 in command -
+INSERT INTO Orders (order_id, customer_id, order_date, total_amount, Remarks_if_any)
+VALUES 
+(1001, 1, '15-JAN-2024', 999.99, 'No Remarks'),
+(1002, 2, '23-FEB-2024', 299.98, 'Delivered'),
+(1003, 3, '05-APR-2024', 129.99, 'Payment Pending'),
+(1004, 4, '19-MAY-2024', 899.99, 'No Remarks'),
+(1005, 5, '23-MAY-2024', 799.99, 'Cancelled'),
+(1006, 6, '22-JUL-2024', 499.99, 'Delivered'),  -- Changed "JULY" → "JUL"
+(1007, 7, '25-JUL-2024', 129.99, 'No Remarks'), -- Changed "JULY" → "JUL"
+(1008, 8, '12-SEP-2024', 699.99, 'Refund Issued'),
+(1009, 9, '20-SEP-2024', 25.99, 'No Remarks'),
+(1010, 10, '23-SEP-2024', 15.99, 'Delivered')
+Error report -
+ORA-00001: unique constraint (SYS.SYS_C008630) violated on table SYS.ORDERS columns (ORDER_ID)
+ORA-03301: (ORA-00001 details) row with column values (ORDER_ID:1001) already exists
+
+https://docs.oracle.com/error-help/db/ora-00001/
+
+More Details :
+https://docs.oracle.com/error-help/db/ora-00001/
+https://docs.oracle.com/error-help/db/ora-03301/
+
+Table ORDERS dropped.
+
+
+Table ORDERS created.
+
+
+10 rows inserted.
+
+
+Error starting at line : 25 in command -
+CREATE TABLE Orders (
+    order_id INTEGER PRIMARY KEY,                   -- Unique identifier for each orders
+    customer_id INTEGER NOT NULL,                   -- order name (cannot be null)
+    order_date DATE DEFAULT SYSDATE,                -- DEFAULT SYSDATE automatically sets to current date/time if not specified
+    total_amount NUMBER CHECK (total_amount > 0),   -- CHECK constraint ensures amount is always positive (> 0)
+    Remarks_if_any VARCHAR2(4000) DEFAULT 'No Remarks', -- Optional remarks field for order notes
+    CONSTRAINT fk_customer FOREIGN KEY (customer_id) REFERENCES Customers(customer_id) -- ensures customer_id exists in Customers table
+)
+Error report -
+ORA-00955: name is already used by an existing object
+
+https://docs.oracle.com/error-help/db/ora-00955/00955. 00000 -  "name is already used by an existing object"
+*Cause:    An attempt was made to create a database object (such
+           as a table, view, cluster, index, or synonym) that already
+           existed. A user's database objects must have distinct names.
+*Action:   Enter a unique name for the database object or modify
+           or drop the existing object so it can be reused.
+
+Table PRODUCTS dropped.
+
+
+Error starting at line : 3 in command -
+DROP TABLE Customers
+Error report -
+ORA-02449: unique/primary keys in table referenced by foreign keys
+
+https://docs.oracle.com/error-help/db/ora-02449/02449. 00000 -  "unique/primary keys in table referenced by foreign keys"
+*Cause:    An attempt was made to drop a table with unique or
+           primary keys referenced by foreign keys in another table.
+*Action:   Before performing the above operations the table, drop the
+           foreign key constraints in other tables. You can see what
+           constraints are referencing a table by issuing the following
+           command:
+           SELECT * FROM USER_CONSTRAINTS WHERE TABLE_NAME = "tabnam";
+
+Table ORDERS dropped.
+
+
+Table PRODUCTS created.
+
+
+Error starting at line : 16 in command -
+CREATE TABLE Customers (
+    customer_id INTEGER PRIMARY KEY,              -- Unique identifier for each customer
+    name VARCHAR(100) NOT NULL,                  -- Customer name (cannot be null)
+    email VARCHAR(100) UNIQUE NOT NULL,          -- Email must be unique and not null
+    phone VARCHAR(20) UNIQUE NOT NULL,           -- Phone must be unique and not null
+    address VARCHAR(200) DEFAULT 'Not Provided'   -- Address with default value if not specified
+)
+Error report -
+ORA-00955: name is already used by an existing object
+
+https://docs.oracle.com/error-help/db/ora-00955/00955. 00000 -  "name is already used by an existing object"
+*Cause:    An attempt was made to create a database object (such
+           as a table, view, cluster, index, or synonym) that already
+           existed. A user's database objects must have distinct names.
+*Action:   Enter a unique name for the database object or modify
+           or drop the existing object so it can be reused.
+
+Table ORDERS created.
+
+
+Error starting at line : 35 in command -
+INSERT INTO Customers (customer_id, name, email, phone, address) 
+VALUES
+(1, 'John Doe', 'john.doe@email.com', '9876543210', '123 Main St'),
+(2, 'Jane Smith', 'jane.smith@email.com', '9823456789', '45 Elm St'),
+(3, 'Alice Brown', 'alice.b@email.com', '9988776655', '78 Pine Ave'),
+(4, 'Bob Johnson', 'bob.j@email.com', '9765432109', '90 Oak Lane'),
+(5, 'Charlie Lee', 'charlie.l@email.com', '9234567890', 'Not Provided'), -- Using default address
+(6, 'David White', 'david.w@email.com', '9678991234', '12 Maple St'),
+(7, 'Emily Clark', 'emily.c@email.com', '9345678901', 'Not Provided'),  -- Using default address
+(8, 'Frank Harris', 'frank.h@email.com', '9763214785', '56 Birch Road'),
+(9, 'Grace Kelly', 'grace.k@email.com', '9757465864', '29 cedar Ave'),
+(10, 'Henry Admas', 'henry.@email.com', '9382939493', '22 walnut Lane')
+Error report -
+ORA-00001: unique constraint (SYS.SYS_C008595) violated on table SYS.CUSTOMERS columns (CUSTOMER_ID)
+ORA-03301: (ORA-00001 details) row with column values (CUSTOMER_ID:1) already exists
+
+https://docs.oracle.com/error-help/db/ora-00001/
+
+More Details :
+https://docs.oracle.com/error-help/db/ora-00001/
+https://docs.oracle.com/error-help/db/ora-03301/
+
+10 rows inserted.
+
+
+10 rows inserted.
+
+
+CUSTOMER_ID NAME                                                                                                 EMAIL                                                                                                PHONE                ADDRESS                                                                                                                                                                                                 
+----------- ---------------------------------------------------------------------------------------------------- ---------------------------------------------------------------------------------------------------- -------------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+          1 John Doe                                                                                             john.doe@email.com                                                                                   9876543210           123 Main St                                                                                                                                                                                             
+          2 Jane Smith                                                                                           jane.smith@email.com                                                                                 9823456789           45 Elm St                                                                                                                                                                                               
+          3 Alice Brown                                                                                          alice.b@email.com                                                                                    9988776655           78 Pine Ave                                                                                                                                                                                             
+
+
+PRODUCT_ID NAME                 CATEGORY                  PRICE STOCK_QUANTITY
+---------- -------------------- -------------------- ---------- --------------
+       101 Apple iPhone 15      Electronics              999.99             10
+       102 Samsung Galaxy S23   Electronics              899.99             15
+       103 Leather Jacket       Clothing                 149.99             25
+
+
+  ORDER_ID CUSTOMER_ID ORDER_DAT TOTAL_AMOUNT
+---------- ----------- --------- ------------
+REMARKS_IF_ANY                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      1001           1 15-JAN-24       999.99 
+No Remarks                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+
+      1002           2 23-FEB-24       299.98 
+Delivered                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+
+      1003           3 05-APR-24       129.99 
+Payment Pending                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+
+
